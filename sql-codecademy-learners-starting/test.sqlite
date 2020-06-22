@@ -1,0 +1,50 @@
+select email_domain,
+  count(*)
+from users
+group by 1
+order by 2 desc
+limit 25;
+
+select city,
+  count(*)
+from users
+where city="New York";
+
+select mobile_app,
+  count(*)
+from users
+group by 1;
+
+select mobile_app,
+  100*count(mobile_app)/(select count(*) from users) as '%'
+from users
+group by 1;
+
+select sign_up_at,
+   strftime('%S', sign_up_at)
+from users
+group by 1
+limit 20;
+
+select strftime('%H', sign_up_at),
+   count(*)
+from users
+group by 1
+order by 1;
+
+select users.user_id,
+   users.email_domain,
+   users.city,
+   users.country,
+   progress.learn_cpp,
+   progress.learn_sql,
+   progress.learn_html,
+   progress.learn_javascript,
+   progress.learn_java
+from users
+join progress
+  on users.user_id = progress.user_id
+limit 10;
+
+
+
